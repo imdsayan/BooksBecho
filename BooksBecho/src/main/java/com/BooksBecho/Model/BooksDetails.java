@@ -2,9 +2,13 @@ package com.BooksBecho.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -18,15 +22,33 @@ public class BooksDetails {
     @Column(name = "book_id")
     private String bookId;
 
+    @NotNull
     private String bookName;
 
+    @NotNull
     private String bookCategory;
 
+    @NotNull
     private String publisherName;
 
+    @NotNull
     private String description;
 
+    @NotNull
     private Integer price;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "sellerId")
+    private SellerDetails seller;
+
+    public SellerDetails getSeller() {
+	return seller;
+    }
+
+    public void setSeller(SellerDetails seller) {
+	this.seller = seller;
+    }
 
     public String getBookId() {
 	return bookId;
