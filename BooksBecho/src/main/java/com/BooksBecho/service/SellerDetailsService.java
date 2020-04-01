@@ -18,4 +18,9 @@ public class SellerDetailsService {
 	String message = "The seller with ID: " + dao.addNewSeller(seller) + " is successfully added";
 	return message;
     }
+
+    public SellerDetails getSellerById(String id) {
+	return dao.getSellerById(id);
+
+    }
 }

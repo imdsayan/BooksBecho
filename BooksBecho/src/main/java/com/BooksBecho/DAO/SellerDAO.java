@@ -22,4 +22,10 @@ public class SellerDAO {
 
     }
 
+    public SellerDetails getSellerById(String id) {
+	Session session = entityManager.unwrap(Session.class);
+	return session.get(SellerDetails.class, id);
+
+    }
+
 }

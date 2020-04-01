@@ -8,12 +8,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.BooksBecho.DAO.BooksDetailsDAO;
 import com.BooksBecho.Model.BooksDetails;
+import com.BooksBecho.Model.SellerDetails;
 
 @Service
 public class BooksDetailsService {
 
     @Autowired
     private BooksDetailsDAO dao;
+
+    @Autowired
+    SellerDetailsService sellerService;
 
     @Transactional
     public List<BooksDetails> getAllBooks() {
@@ -24,6 +28,8 @@ public class BooksDetailsService {
 
     @Transactional
     public void newBookEntry(BooksDetails book) {
+	SellerDetails seller = dao.getSellerById(book.getSellerId());
+	book.setSeller(seller);
 	dao.newBookEntry(book);
     }
 

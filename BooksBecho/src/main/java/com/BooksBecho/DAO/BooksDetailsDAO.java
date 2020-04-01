@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.BooksBecho.Model.BooksDetails;
+import com.BooksBecho.Model.SellerDetails;
 
 @Repository
 public class BooksDetailsDAO {
@@ -28,6 +29,12 @@ public class BooksDetailsDAO {
     public void newBookEntry(BooksDetails book) {
 	Session session = entityManager.unwrap(Session.class);
 	session.save(book);
+
+    }
+
+    public SellerDetails getSellerById(String id) {
+	Session session = entityManager.unwrap(Session.class);
+	return session.get(SellerDetails.class, id);
 
     }
 

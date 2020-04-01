@@ -2,18 +2,22 @@ package com.BooksBecho.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "BooksDetails")
+@JsonIgnoreProperties(value = { "sellerId" }, allowSetters = true) // Ignoring sellerId during get-service but allowing
+								   // during post
 public class BooksDetails {
 
     @Id
@@ -37,8 +41,10 @@ public class BooksDetails {
     @NotNull
     private Integer price;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @Transient
+    private String sellerId;
+
+    @ManyToOne
     @JoinColumn(name = "sellerId")
     private SellerDetails seller;
 
@@ -48,6 +54,14 @@ public class BooksDetails {
 
     public void setSeller(SellerDetails seller) {
 	this.seller = seller;
+    }
+
+    public String getSellerId() {
+	return sellerId;
+    }
+
+    public void setSellerId(String sellerId) {
+	this.sellerId = sellerId;
     }
 
     public String getBookId() {
